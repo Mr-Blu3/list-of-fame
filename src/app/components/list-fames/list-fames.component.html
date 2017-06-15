@@ -1,0 +1,28 @@
+<div class="card-header">
+  <h4>List Of Fame</h4>
+</div>
+
+<div class="card-body">
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr><th *ngFor="let tableHead of tableHeaders" :class="{{tableHead.classes}}">{{tableHead.name}}</th></tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let s_folk of folks">
+        <td><small [hidden]="showEditPerson === s_folk && showEditBool">{{s_folk.firstName}}</small><input #firstName [hidden]="showEditPerson !== s_folk || !showEditBool" type="text" [value]="s_folk.firstName"></td>
+        <td><small [hidden]="showEditPerson === s_folk && showEditBool">{{s_folk.lastName}}</small><input #lastName [hidden]="showEditPerson !== s_folk || !showEditBool" type="text" [value]="s_folk.lastName"></td>
+        <td><small [hidden]="showEditPerson === s_folk && showEditBool">{{s_folk.description}}</small><textarea #description [hidden]="showEditPerson !== s_folk || !showEditBool" type="text" placeholder="First Name" [value]="s_folk.description"></textarea></td>
+        <td><small [hidden]="showEditPerson === s_folk && showEditBool">{{s_folk.age}}</small><input #age [hidden]="showEditPerson !== s_folk || !showEditBool" type="number" [value]="s_folk.age"></td>
+        <td><small [hidden]="showEditPerson === s_folk && showEditBool">{{s_folk.interest}}</small><textarea #interest [hidden]="showEditPerson !== s_folk || !showEditBool" type="text" [value]="s_folk.interest"></textarea></td>
+
+        <td>
+          <button class="btn btn-secondary fa"
+            [class.fa-pencil-square-o]="showEditPerson !== s_folk || !showEditBool" [class.fa-floppy-o]="showEditPerson === s_folk && showEditBool"
+            (click)="ShowEditPerson(s_folk); savePerson({firstName: firstName.value, lastName: lastName.value, description: description.value, age: age.value, interest: interest.value}, s_folk)"></button>
+        </td>
+        <td><button class="btn btn-secondary fa fa-times" (click)="deletePerson(s_folk)" style="cursor: pointer"></button></td>
+    </tr>
+    <tr *ngIf="noRows"><td class="text-center" colspan="7"><h4>No rows detected ({{folks.length}})</h4></td></tr>
+    </tbody>
+  </table>
+</div>
